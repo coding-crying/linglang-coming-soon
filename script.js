@@ -151,6 +151,115 @@ document.addEventListener('DOMContentLoaded', function() {
         copyrightText.textContent = `© ${currentYear} LingLang. All rights reserved.`;
     }
 
+    // Chat Animation - Simulate typing and messages
+    function simulateChatAnimation() {
+        const messages = document.querySelectorAll('.chat-messages .message');
+        const typingIndicator = document.querySelector('.typing-indicator');
+
+        // Hide all messages initially
+        messages.forEach(message => {
+            message.style.opacity = '0';
+            message.style.transform = 'translateY(10px)';
+        });
+
+        // Hide typing indicator initially
+        if (typingIndicator) {
+            typingIndicator.style.opacity = '0';
+        }
+
+        // Animate messages appearing one by one
+        let delay = 0;
+        messages.forEach((message, index) => {
+            setTimeout(() => {
+                message.style.transition = 'all 0.5s ease-out';
+                message.style.opacity = '1';
+                message.style.transform = 'translateY(0)';
+
+                // Show typing indicator before last message
+                if (index === messages.length - 2 && typingIndicator) {
+                    setTimeout(() => {
+                        typingIndicator.style.opacity = '1';
+                        // Hide typing indicator after 2 seconds and show last message
+                        setTimeout(() => {
+                            typingIndicator.style.opacity = '0';
+                        }, 2000);
+                    }, 1000);
+                }
+            }, delay);
+            delay += 1500;
+        });
+    }
+
+    // Phone mockup interaction
+    const phoneMockup = document.querySelector('.phone-mockup');
+    if (phoneMockup) {
+        // Add subtle floating animation
+        phoneMockup.style.animation = 'phoneFloat 6s ease-in-out infinite';
+
+        // Start chat animation when phone is visible
+        const phoneObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(simulateChatAnimation, 1000);
+                    phoneObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        phoneObserver.observe(phoneMockup);
+    }
+
+    // Add click effect to feature cards
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    });
+
+    // Update button text based on form state
+    function updateButtonText() {
+        const button = document.querySelector('.cta-button .button-text');
+        const emailInput = document.getElementById('emailInput');
+
+        if (emailInput && button) {
+            emailInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    button.textContent = 'Join Waitlist';
+                } else {
+                    button.textContent = 'Join Waitlist';
+                }
+            });
+        }
+    }
+
+    updateButtonText();
+
+    // Enhanced success message
+    const originalShowMessage = showMessage;
+    function showMessage(text, type) {
+        if (type === 'success') {
+            // Add celebration effect
+            createCelebrationEffect();
+        }
+        originalShowMessage(text, type);
+    }
+
+    function createCelebrationEffect() {
+        // Simple celebration animation
+        const button = document.querySelector('.cta-button');
+        if (button) {
+            button.style.transform = 'scale(1.1)';
+            button.style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
+            setTimeout(() => {
+                button.style.transform = '';
+                button.style.background = '';
+            }, 300);
+        }
+    }
+
     // Log page view (for analytics when implemented)
     console.log('LingLang Coming Soon Page Loaded');
 
