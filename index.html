@@ -1,222 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LingLang — Speak Naturally</title>
-    <meta name="description" content="The anti-flashcard language app. Have real conversations with AI that adapts to you.">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23E07A5F'/%3E%3Cpath d='M30 50 Q 50 70 70 50' stroke='white' stroke-width='6' fill='none'/%3E%3C/svg%3E">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="LingLang — Speak Naturally">
-    <meta property="og:description" content="The anti-flashcard language app.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://linglang.app">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Background Texture (Optional, handled in CSS usually but keeping a container if needed for noise) -->
-    <div class="noise-overlay"></div>
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="logo">
-                <span class="logo-icon">💬</span>
-                <span class="logo-text">LingLang</span>
-            </div>
-            <div class="nav-links">
-                <span class="nav-status">Coming Soon</span>
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Left Side - Hero Content -->
-            <div class="hero-section">
-                <div class="hero-content">
-                    <div class="badge">Beta Access</div>
-                    <h1 class="hero-title">
-                        <span class="title-line">Don't just learn.</span>
-                        <span class="title-line highlight">Speak.</span>
-                    </h1>
-                    <p class="hero-description">
-                        The anti-flashcard app. Immerse yourself in adaptive, real-world conversations without the anxiety of a human tutor.
-                    </p>
-
-                    <!-- Key Points -->
-                    <div class="key-points">
-                        <div class="key-point">
-                            <span class="point-icon">→</span>
-                            <span class="point-text">Have actual conversations, not flashcard drills</span>
-                        </div>
-                        <div class="key-point">
-                            <span class="point-icon">→</span>
-                            <span class="point-text">AI adjusts difficulty as you improve</span>
-                        </div>
-                        <div class="key-point">
-                            <span class="point-icon">→</span>
-                            <span class="point-text">Practice anytime, no scheduling needed</span>
-                        </div>
-                    </div>
-
-                    <!-- Self-hosted notice -->
-                    <div class="hosting-info">
-                        <p class="hosting-text">
-                            Self-hosted version planned • Keep your data private
-                        </p>
-                    </div>
-
-                    <!-- Email Signup -->
-                    <div class="signup-container">
-                        <form id="signupForm" class="signup-form">
-                            <input
-                                type="email"
-                                id="emailInput"
-                                class="email-input"
-                                placeholder="your@email.com"
-                                required
-                                aria-label="Email address"
-                            >
-                            <button type="submit" class="cta-button">
-                                <span class="button-text">Get notified</span>
-                                <svg class="button-icon" width="16" height="16" viewBox="0 0 20 20" fill="none">
-                                    <path d="M7 10H13M13 10L10 7M13 10L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </form>
-                        <p id="signupMessage" class="signup-message"></p>
-                        <p class="signup-note">We'll let you know when it's ready to try</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side - Chat Preview -->
-            <div class="app-preview">
-                <div class="chat-preview-label">See it in action:</div>
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="chat-header">
-                            <div class="chat-avatar">AI</div>
-                            <div class="chat-info">
-                                <span class="chat-name">Spanish Practice</span>
-                                <span class="chat-status">• Online</span>
-                            </div>
-                        </div>
-
-                        <div class="chat-messages">
-                            <div class="message ai">
-                                <div class="message-bubble">
-                                    Hey! Want to practice ordering food in Spanish? I'll be the waiter.
-                                </div>
-                            </div>
-
-                            <div class="message user">
-                                <div class="message-bubble">
-                                    Sure! Let's try it
-                                </div>
-                            </div>
-
-                            <div class="message ai">
-                                <div class="message-bubble">
-                                    ¡Hola! ¿Qué le gustaría ordenar hoy?
-                                </div>
-                            </div>
-
-                            <div class="message user">
-                                <div class="message-bubble">
-                                    Hmm... quiero un sandwich de pollo, por favor
-                                </div>
-                            </div>
-
-                            <div class="message ai">
-                                <div class="message-bubble">
-                                    Perfect! That was very natural. Quick tip: You could also say "Quisiera..." for "I would like" - sounds a bit more polite in restaurants.
-                                </div>
-                                <div class="ai-feedback">
-                                    <span class="feedback-badge">Good grammar</span>
-                                    <span class="feedback-badge">Natural flow</span>
-                                </div>
-                            </div>
-
-                            <div class="typing-indicator">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-
-                        <div class="chat-input">
-                            <input type="text" placeholder="Type your response..." disabled>
-                            <button class="send-button" disabled>
-                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                                    <path d="M2 10L8 4L14 10M8 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 10 10)"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Features Section -->
-        <section class="features">
-            <h2 class="features-title">Why conversation works better</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">Chat</div>
-                    <h3 class="feature-title">Practice Real Scenarios</h3>
-                    <p class="feature-description">
-                        Order food, ask for directions, make small talk. Practice situations you'll actually use.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">Learn</div>
-                    <h3 class="feature-title">Mistakes Are Learning</h3>
-                    <p class="feature-description">
-                        The AI gives gentle corrections and explains why, helping you improve naturally.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">Level</div>
-                    <h3 class="feature-title">Adapts to You</h3>
-                    <p class="feature-description">
-                        Start as a complete beginner or jump to advanced topics. It meets you where you are.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">Time</div>
-                    <h3 class="feature-title">Your Schedule</h3>
-                    <p class="feature-description">
-                        No classes to attend or partners to coordinate with. Practice whenever you want.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p class="footer-text">© 2024 LingLang</p>
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Privacy</a>
-                    <a href="#" class="footer-link">About</a>
-                    <a href="#" class="footer-link">Contact</a>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LingLang</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Netlify Forms beacons: static declarations so the build scanner registers each form name -->
+    <form name="waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="waitlist" />
+      <input type="email" name="email" />
+    </form>
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="request-access" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="request-access" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <select name="interest"></select>
+      <textarea name="notes"></textarea>
+    </form>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

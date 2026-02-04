@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Hosted - LingLang</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                LingLang.app
+            </a>
+            <div class="nav-menu">
+                <a href="demo.html" class="nav-link">Demo</a>
+                <a href="self-hosted.html" class="nav-link">Self-Hosted</a>
+                <a href="signup.html" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">Get Notified</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="section container">
+        <div class="grid-2" style="align-items: flex-start;">
+            <!-- Left: Content -->
+            <div>
+                <p class="text-mono" style="color: var(--accent-main); margin-bottom: 1rem;">// DEPLOYMENT</p>
+                <h1 class="text-large">Own your infrastructure.</h1>
+                <p class="text-body-lead" style="margin-top: 1.5rem; margin-bottom: 3rem;">
+                    LingLang is designed to be run on bare metal, VPS, or your local machine. We provide official Docker images and Helm charts.
+                </p>
+
+                <h3>Prerequisites</h3>
+                <ul style="margin: 1rem 0 2rem 1.5rem; color: var(--text-secondary);">
+                    <li>Docker Engine 20.10+</li>
+                    <li>2GB RAM (Min), 4GB (Rec)</li>
+                    <li>OpenAI API Key (or local LLM endpoint)</li>
+                </ul>
+
+                <h3>Local LLM Support</h3>
+                <p style="color: var(--text-secondary);">
+                    LingLang supports Ollama and LocalAI out of the box. Point the configuration to your local inference server for a 100% offline experience.
+                </p>
+            </div>
+
+            <!-- Right: Terminal -->
+            <div>
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dot" style="background: #ff5f56"></div>
+                        <div class="terminal-dot" style="background: #ffbd2e"></div>
+                        <div class="terminal-dot" style="background: #27c93f"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <span class="comment"># 1. Pull the image</span>
+                        <div class="cmd">> docker pull linglang/engine:latest</div>
+                        <br>
+                        <span class="comment"># 2. Create configuration</span>
+                        <div class="cmd">> mkdir config && touch config/settings.yaml</div>
+                        <br>
+                        <span class="comment"># 3. Run the container</span>
+                        <div class="cmd">> docker run -d \</div>
+                        <div class="arg">  --name linglang \</div>
+                        <div class="arg">  -p 3000:3000 \</div>
+                        <div class="arg">  -v $(pwd)/config:/app/config \</div>
+                        <div class="arg">  linglang/engine:latest</div>
+                        <br>
+                        <div class="cmd" style="color: var(--accent-main)">> Container started: 8f2a1c9d</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: white; border: 1px solid var(--line-color); border-radius: 8px;">
+                    <h4><span style="color: var(--accent-main)">Warning:</span> Alpha Release</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                        The self-hosted version is currently in active development. Breaking changes may occur in the API schema.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div style="font-size: 0.8rem; color: var(--text-tertiary);">
+                &copy; 2024 LingLang Labs.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

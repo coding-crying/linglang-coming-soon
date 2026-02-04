@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | LingLang</title>
+    <style>
+      :root {
+        --bg: #07080a;
+        --panel: #10131a;
+        --text: #f8fafc;
+        --muted: #9aa4b7;
+        --accent: #6366f1;
+        --line: rgba(255, 255, 255, 0.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.2), transparent 30%), var(--bg);
+        color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px; }
+      .card {
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 88%, black);
+        border-radius: 20px;
+        padding: 28px;
+      }
+      h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 2.7rem); }
+      p { color: var(--muted); line-height: 1.6; margin: 0 0 18px; }
+      label { display: block; margin: 14px 0 8px; color: #dbe3f1; }
+      input, textarea {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+      button {
+        margin-top: 16px;
+        width: 100%;
+        border: 0;
+        border-radius: 999px;
+        padding: 13px 18px;
+        background: var(--accent);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      a { color: #b8c2ff; }
+      .back { display: inline-block; margin-top: 14px; color: var(--muted); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card">
+        <h1>Contact LingLang</h1>
+        <p>Questions, pilot requests, or partnerships. We usually reply within 1-2 business days.</p>
+
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="bot-field" />
+
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <a class="back" href="/">Back to LingLang</a>
+      </section>
+    </main>
+  </body>
+</html>

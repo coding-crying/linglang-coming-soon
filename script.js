@@ -1,143 +1,175 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- Signup Form Logic ---
-    const signupForm = document.getElementById('signupForm');
-    const emailInput = document.getElementById('emailInput');
-    const signupMessage = document.getElementById('signupMessage');
 
-    if (signupForm) {
-        signupForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const email = emailInput.value.trim();
-
-            if (!validateEmail(email)) {
-                showMessage('Please enter a valid email address.', 'error');
-                return;
-            }
-
-            // Set loading state
-            const submitButton = signupForm.querySelector('.cta-button');
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<span class="button-text">Processing...</span>';
-            submitButton.disabled = true;
-            emailInput.disabled = true;
-
-            try {
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 1200));
-
-                // Success State
-                showMessage("You're on the list. We'll be in touch.", 'success');
-                emailInput.value = '';
-                
-                // Reset button after a moment
-                setTimeout(() => {
-                    submitButton.innerHTML = '<span class="button-text">Joined</span>';
-                    submitButton.style.backgroundColor = 'var(--accent-success)';
-                }, 500);
-
-            } catch (error) {
-                showMessage('Something went wrong. Please try again.', 'error');
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-                emailInput.disabled = false;
-            }
-        });
-    }
-
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function showMessage(text, type) {
-        if (!signupMessage) return;
-        signupMessage.textContent = text;
-        signupMessage.className = `signup-message ${type}`;
-        
-        // Simple fade in
-        signupMessage.style.opacity = '0';
-        signupMessage.style.display = 'block';
-        setTimeout(() => {
-            signupMessage.style.transition = 'opacity 0.3s ease';
-            signupMessage.style.opacity = '1';
-        }, 10);
-    }
-
-    // --- Chat Animation (Subtle & Smooth) ---
-    const messages = document.querySelectorAll('.chat-messages .message');
-    const typingIndicator = document.querySelector('.typing-indicator');
-    
-    if (messages.length > 0) {
-        // Initial State: Hide messages
-        messages.forEach(msg => {
-            msg.style.opacity = '0';
-            msg.style.transform = 'translateY(10px)';
-            msg.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        });
-
-        if (typingIndicator) {
-            typingIndicator.style.opacity = '0';
-            typingIndicator.style.transition = 'opacity 0.3s ease';
+    // --- Scenario Configuration (Witty "Hard vs Hardly" Theme) ---
+    const scenario = [
+        { 
+            role: 'ai', 
+            text: "You look like you've fought a bear." 
+        },
+        { 
+            role: 'user', 
+            text: "I feel like it. I have been working ",
+            typeSpeed: 30
+        },
+        {
+            role: 'user',
+            text: "hardly",
+            isKeyword: true,
+            keywordId: 'hardly', // Maps to node-hardly
+            typeSpeed: 80 
+        },
+        {
+            role: 'user',
+            text: " all day.",
+            typeSpeed: 30
+        },
+        {
+            role: 'ai',
+            text: "If you were working 'hardly', the bear would have won.",
+            typeSpeed: 30,
+            delay: 1200
+        },
+        { 
+            role: 'ai', 
+            text: " You mean working hard.", // Fixed spacing
+            typeSpeed: 30,
+            delay: 300
+        },
+        {
+            role: 'user',
+            text: "Ha. Yes. I am absolutely ",
+            typeSpeed: 30,
+            delay: 800
+        },
+        {
+            role: 'user',
+            text: "exhausted",
+            isKeyword: true,
+            keywordId: 'exhausted', // Maps to node-exhausted
+            typeSpeed: 80
+        },
+        {
+            role: 'user',
+            text: ".",
+            typeSpeed: 30
+        },
+        {
+            role: 'ai',
+            text: "Then rest, warrior. The bear can wait.",
+            typeSpeed: 30,
+            delay: 800
         }
+    ];
 
-        // Sequence
-        const sequence = async () => {
-            // Wait a bit after load
-            await wait(1000);
+    const heroChat = document.getElementById('heroChat');
+    
+    // --- Typewriter Logic ---
+    async function runScenario() {
+        let currentBubble = null;
+        let currentTextContainer = null;
 
-            // Message 1 (AI)
-            revealMessage(messages[0]);
-            await wait(2000);
+        for (let segment of scenario) {
+            const isNewBubble = !currentBubble || currentBubble.dataset.role !== segment.role;
 
-            // Message 2 (User)
-            revealMessage(messages[1]);
-            await wait(1500);
+            if (segment.delay) {
+                await wait(segment.delay);
+            }
 
-            // Message 3 (AI)
-            revealMessage(messages[2]);
-            await wait(2500);
+            if (isNewBubble) {
+                currentBubble = document.createElement('div');
+                currentBubble.className = `chat-bubble ${segment.role} visible`;
+                currentBubble.dataset.role = segment.role;
+                
+                heroChat.appendChild(currentBubble);
+                currentTextContainer = document.createElement('span');
+                currentBubble.appendChild(currentTextContainer);
+            }
 
-            // Message 4 (User)
-            revealMessage(messages[3]);
-            await wait(1000);
+            if (segment.isKeyword) {
+                const span = document.createElement('span');
+                span.className = 'vocab-highlight';
+                currentTextContainer.appendChild(span);
+                
+                await typeText(span, segment.text, segment.typeSpeed || 50);
+                activateGraphNode(segment.keywordId);
+                span.classList.add('active');
 
-            // Show Typing Indicator
-            if (typingIndicator) typingIndicator.style.opacity = '1';
-            await wait(2000);
-            if (typingIndicator) typingIndicator.style.opacity = '0';
-
-            // Message 5 (AI + Feedback)
-            revealMessage(messages[4]);
-        };
-
-        // Start animation when element is in view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    sequence();
-                    observer.disconnect();
-                }
-            });
-        }, { threshold: 0.2 });
-
-        const chatPreview = document.querySelector('.app-preview');
-        if (chatPreview) observer.observe(chatPreview);
+            } else {
+                const span = document.createElement('span');
+                currentTextContainer.appendChild(span);
+                await typeText(span, segment.text, segment.typeSpeed || 30);
+            }
+        }
     }
 
-    function revealMessage(element) {
-        if (!element) return;
-        element.style.opacity = '1';
-        element.style.transform = 'translateY(0)';
+    function typeText(element, text, speed) {
+        return new Promise(resolve => {
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerText += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    resolve();
+                }
+            }
+            type();
+        });
     }
 
     function wait(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    // --- Dynamic Year ---
-    const footerText = document.querySelector('.footer-text');
-    if (footerText) {
-        footerText.innerHTML = `&copy; ${new Date().getFullYear()} LingLang.`;
+    // --- Knowledge Graph Logic ---
+    function activateGraphNode(keywordId) {
+        const triggerNode = document.getElementById(`node-${keywordId}`);
+        if (!triggerNode) return;
+
+        // Reveal Trigger Node
+        triggerNode.style.opacity = '1';
+        triggerNode.style.transform = 'translate(-50%, -50%) scale(1.1)';
+        
+        // If it's the "due" word (exhausted in this scenario for demo), hide the due badge
+        if (keywordId === 'exhausted') {
+            triggerNode.classList.remove('due');
+        }
+
+        setTimeout(() => {
+            triggerNode.style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 300);
+
+        // Reveal Connections, Leaves, and Memory Node
+        if (keywordId === 'exhausted') {
+            revealConnection('line-exhausted-root');
+            setTimeout(() => { revealLeaf('node-fatigue', 'line-fatigue-exhausted'); }, 400);
+            setTimeout(() => { revealLeaf('node-sleep', 'line-sleep-exhausted'); }, 800);
+            setTimeout(() => { revealLeaf('mem-exhausted', 'line-mem-exhausted'); }, 600);
+        }
+        else if (keywordId === 'hardly') {
+            revealConnection('line-hardly-root');
+            setTimeout(() => { revealLeaf('node-grammar', 'line-grammar-hardly'); }, 400);
+            setTimeout(() => { revealLeaf('node-nuance', 'line-nuance-hardly'); }, 800);
+            setTimeout(() => { revealLeaf('mem-hardly', 'line-mem-hardly'); }, 600);
+        }
     }
+
+    function revealConnection(lineId) {
+        const line = document.getElementById(lineId);
+        if (line) line.setAttribute('stroke-opacity', '1');
+    }
+
+    function revealLeaf(nodeId, lineId) {
+        const node = document.getElementById(nodeId);
+        const line = document.getElementById(lineId);
+        if (line) line.setAttribute('stroke-opacity', '1');
+        if (node) node.style.opacity = '1';
+    }
+
+    // --- Initialization ---
+    setTimeout(() => {
+        runScenario();
+    }, 1000);
+
 });
