@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Cloud beta voice bubble">
+  <rect width="240" height="240" rx="34" fill="#fbf8ef"/>
+  <path d="M72 142c-22 0-40-17-40-38s18-38 40-38c7-26 30-44 58-44 35 0 63 27 65 61 19 6 32 22 32 41 0 24-20 43-45 43H98l-36 27 10-52Z" fill="#df7458"/>
+  <path d="M129 91c13 10 13 34 0 44M151 80c22 18 22 57 0 75M106 103c6 5 6 15 0 20" fill="none" stroke="#303346" stroke-width="12" stroke-linecap="round"/>
+</svg>

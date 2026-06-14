@@ -17,11 +17,15 @@ export function CTASection() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const body = new URLSearchParams(new FormData(form) as any);
-    await fetch('/', {
+    const formData = new FormData(form);
+    await fetch('/api/waitlist', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString(),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: formData.get('email'),
+        source: 'legacy-cta',
+        page: window.location.pathname,
+      }),
     });
     setSubmitted(true);
   };

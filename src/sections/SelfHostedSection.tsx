@@ -124,7 +124,7 @@ export function SelfHostedSection() {
                 size="lg"
                 className="border-white/20 text-white hover:bg-white/10 px-6 py-5 rounded-full font-medium flex items-center gap-2"
                 onClick={() => {
-                  window.location.href = '/request-access.html';
+                  window.location.href = '/#access';
                 }}
               >
                 <Github size={20} />
@@ -143,7 +143,7 @@ export function SelfHostedSection() {
                 <ArrowRight size={14} />
               </a>
               <a 
-                href="/request-access.html"
+                href="/research/linglang-thesis.pdf"
                 className="text-text-secondary hover:text-indigo-glow text-sm flex items-center gap-2 transition-colors"
               >
                 Read the Research

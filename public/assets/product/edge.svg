@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="On-device phone agent">
+  <rect width="240" height="240" rx="34" fill="#fbf8ef"/>
+  <rect x="70" y="31" width="100" height="178" rx="24" fill="none" stroke="#303346" stroke-width="10"/>
+  <path d="M101 48h38" stroke="#303346" stroke-width="8" stroke-linecap="round"/>
+  <rect x="91" y="83" width="58" height="58" rx="14" fill="#303346"/>
+  <circle cx="120" cy="112" r="12" fill="#efc985"/>
+  <path d="M90 112H76M164 112h-14M120 83V69M120 155v-14M99 84l-8-12M141 84l8-12M99 140l-8 12M141 140l8 12" stroke="#efc985" stroke-width="7" stroke-linecap="round"/>
+  <path d="M92 171v-12M106 177v-24M120 181v-32M134 177v-24M148 171v-12" stroke="#df7458" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -51,10 +51,21 @@ module.exports = {
           primary: '#F2F5F9',
           secondary: '#A9B3C1',
         },
+        lab: {
+          ink: '#080B10',
+          graphite: '#101820',
+          panel: '#111720',
+          chalk: '#F4F1E8',
+          muted: '#AAB4B7',
+          cyan: '#5EEAD4',
+          amber: '#F5B84B',
+          oxide: '#9FB86F',
+        },
       },
       fontFamily: {
-        heading: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Hauora', 'system-ui', 'sans-serif'],
+        body: ['Hauora', 'system-ui', 'sans-serif'],
+        mono: ['Azeret Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       fontSize: {
         'hero': 'clamp(44px, 5.2vw, 84px)',

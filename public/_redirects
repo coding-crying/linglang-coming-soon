@@ -1,0 +1,7 @@
+/local /index.html 200
+/self-hosted /index.html 200
+/linglang-local /index.html 200
+/cloud /index.html 200
+/linglang-cloud /index.html 200
+/edge /index.html 200
+/linglang-edge /index.html 200

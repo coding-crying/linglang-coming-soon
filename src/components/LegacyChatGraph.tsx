@@ -185,7 +185,7 @@ export function LegacyChatGraph() {
     if (isRunningRef.current) return;
     isRunningRef.current = true;
 
-    while (!isCancelledRef.current && isVisibleRef.current) {
+    while (!isCancelledRef.current) {
       await runScenario();
       await wait(2600);
     }
@@ -228,7 +228,7 @@ export function LegacyChatGraph() {
         <div className="legacy-panel h-full min-h-[320px]">
           <h3 className="text-white font-medium mb-4 flex items-center gap-2">
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-            Live Conversation
+            Conversation
           </h3>
           <div ref={chatRef} className="legacy-chat-flow" />
         </div>
@@ -238,7 +238,7 @@ export function LegacyChatGraph() {
         <div className="legacy-panel h-full min-h-[320px] flex flex-col">
           <h3 className="text-white font-medium mb-4 flex items-center gap-2">
             <span className="w-2 h-2 bg-indigo-glow rounded-full animate-pulse" />
-            Live Memory Model
+            Memory
           </h3>
           <div className="legacy-graph flex-1 relative">
             <div className="legacy-graph-canvas">
